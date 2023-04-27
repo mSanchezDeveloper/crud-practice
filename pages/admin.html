@@ -91,18 +91,22 @@
             <div class="mb-3">
               <label for="code">Id</label>
               <input id="code" type="text" class="form-control" placeholder="123" maxlength="5" minlength="1">
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="title">Title</label>
-              <input id="title" type="text" class="form-control" placeholder="Example: Robotech" maxlength="200" minlength="5">
+              <input id="title" type="text" class="form-control" placeholder="Example: Robotech" maxlength="200" minlength="5" required>
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="description">Description</label>
-              <textarea id="description" rows="4" class="form-control" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, laboriosam?" maxlength="60" minlength="10"></textarea>
+              <textarea id="description" rows="4" class="form-control" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, laboriosam?" maxlength="60" minlength="10" required></textarea>
+              <div id="validateDescription" class="invalid-feedback">Please choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="image">Cover</label>
-              <input id="image" type="text" class="form-control" placeholder="Example: http://127.0.0.1:5500/pages/admin.html" maxlength="120" minlength="10">
+              <input id="image" type="text" class="form-control" placeholder="Example: http://127.0.0.1:5500/pages/admin.html" maxlength="120" minlength="10" required>
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="genre">Genre</label>
@@ -114,6 +118,7 @@
                 <option value="comedy">Comedy</option>
                 <option value="adventure">Adventure</option>
               </select>
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
             <button class="btn btn-primary" type="submit">Save</button>
           </form>

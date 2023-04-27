@@ -1,4 +1,5 @@
 import { NewSerie } from "./serieClass.js";
+import { campoRequerido, cantidadCaracteres } from "./validations.js";
 
 
 // Traer elementos para validar
@@ -8,7 +9,11 @@ let descriptionInput = document.querySelector('#description');
 let imageInput = document.querySelector('#image');
 let genreInput = document.querySelector('#genre');
 let formSerie = document.querySelector('#formSeries');
-let seriesList =[];
+const modalSerieAdmin = new bootstrap.Modal(document.getElementById('modalSeriesAdmin'));
+console.log(modalSerieAdmin);
+
+//Si hay algo en localStorage listar arreglo.
+let seriesList = JSON.parse(localStorage.getItem('listaSeriesKey')) || [];
 
 //Validar formulario
 formSerie.addEventListener('submit', crearSerie);
@@ -22,8 +27,34 @@ function crearSerie(e) {
     console.log(seriesList);
     //Clean form
     cleanForm();
+    //Guardar series en localStorage
+    saveListSeries();
+    //Cerrar modal luego de ingresar serie
 }
 
-function cleanForm(){
+function cleanForm() {
     formSerie.reset();
 }
+
+// Guardar en localstorage
+function saveListSeries() {
+    localStorage.setItem('listaSeriesKey', JSON.stringify(seriesList));
+}
+
+
+//Validations
+code.addEventListener("blur", () => {
+    campoRequerido(code);
+});
+
+title.addEventListener("blur", () => {
+    cantidadCaracteres(7, 40, title);
+});
+
+description.addEventListener("blur", () => {
+    cantidadCaracteres(10, 200, description);
+});
+
+image.addEventListener("blur", () => {
+    campoRequerido(image);
+});
