@@ -9,6 +9,8 @@ let descriptionInput = document.querySelector('#description');
 let imageInput = document.querySelector('#image');
 let genreInput = document.querySelector('#genre');
 let formSerie = document.querySelector('#formSeries');
+const btnCreateSerie = document.querySelector('#btnCreateSerie');
+
 const modalSerieAdmin = new bootstrap.Modal(document.getElementById('modalSeriesAdmin'));
 console.log(modalSerieAdmin);
 
@@ -30,6 +32,13 @@ function crearSerie(e) {
     //Guardar series en localStorage
     saveListSeries();
     //Cerrar modal luego de ingresar serie
+    modalSerieAdmin.hide();
+    //Mostrar ok sweet alert
+    Swal.fire(
+        '¡Buen trabajo!',
+        '¡Una nueva serie ha sido creada!',
+        'success'
+    )
 }
 
 function cleanForm() {
@@ -58,3 +67,8 @@ description.addEventListener("blur", () => {
 image.addEventListener("blur", () => {
     campoRequerido(image);
 });
+
+btnCreateSerie.addEventListener('click', () => {
+    cleanForm();
+    modalSerieAdmin.show();
+})
