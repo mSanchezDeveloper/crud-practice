@@ -1,0 +1,13 @@
+p.content-form__text {
+    white-space: nowrap;
+    width: 12em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p.content-form__text-description {
+    white-space: nowrap;
+    width: 18em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
