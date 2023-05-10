@@ -76,14 +76,13 @@ cargaInicial();
 // Dibujar la tabla al iniciar
 function cargaInicial() {
     if (seriesList.length > 0) {
-        seriesList.forEach((itemSerie) => {crearFila(itemSerie)});
+        seriesList.forEach((itemSerie) => { crearFila(itemSerie) });
     }
 };
 
 function crearFila(itemSerie) {
-    console.log(itemSerie)
     let tablaSeries = document.querySelector("#seriesDetails");
-    tablaSeries.innerHTML+= `
+    tablaSeries.innerHTML += `
     <tr>
         <th scope="row">${itemSerie.code}</th>
         <td>${itemSerie.title}</td>
@@ -94,11 +93,40 @@ function crearFila(itemSerie) {
         <button class="btn btn-warning my-1">
             <i class="bi bi-pencil-fill"></i>
         </button>
-        <button class="btn btn-danger my-1">
+        <button class="btn btn-danger my-1" onclick="deleteProduct('${itemSerie.code}')">
             <i class="bi bi-x-circle-fill"></i>
         </button>
         </td>
     </tr> `;
-console.log("Crear fila")
-   
+};
+
+// Borrar producto
+window.deleteProduct = function (codigo) {
+    console.log("Delete product " + codigo);
+    //Confirmar borrar
+    Swal.fire({
+        title: '¿Estas seguro de eliminar la serie?',
+        text: "¡Recuerda que no puedes volver atras!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Quiero borrar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //Delete serie desde local y el arreglo seriesList
+
+            //Actualizar tabla
+
+            //Success delete
+
+            Swal.fire(
+                '¡Borrado!',
+                'La serie a sido borrado con éxito.',
+                'success'
+            )
+        }
+    })
+
 };
