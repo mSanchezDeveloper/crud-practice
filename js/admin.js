@@ -36,7 +36,7 @@ btnCreateSerie.addEventListener('click', () => {
 const modalSerieAdmin = new bootstrap.Modal(document.getElementById('modalSeriesAdmin'));
 
 //Si hay algo en localStorage listar arreglo.
-const seriesList = JSON.parse(localStorage.getItem("listaSeriesKey")) || [];
+let seriesList = JSON.parse(localStorage.getItem("listaSeriesKey")) || [];
 
 //Validar formulario
 formSerie.addEventListener('submit', crearSerie);
@@ -58,7 +58,9 @@ function crearSerie(e) {
         '¡Buen trabajo!',
         '¡Una nueva serie ha sido creada!',
         'success'
-    )
+    );
+    deleteTable();
+    cargaInicial();
 };
 
 function cleanForm() {
@@ -101,8 +103,8 @@ function crearFila(itemSerie) {
 };
 
 // Borrar producto
-window.deleteProduct = function (codigo) {
-    console.log("Delete product " + codigo);
+window.deleteProduct = function (code) {
+    console.log("Delete product " + code);
     //Confirmar borrar
     Swal.fire({
         title: '¿Estas seguro de eliminar la serie?',
@@ -116,9 +118,13 @@ window.deleteProduct = function (codigo) {
     }).then((result) => {
         if (result.isConfirmed) {
             //Delete serie desde local y el arreglo seriesList
-
+            let seriesListNew = seriesList.filter((serie) => { return serie.code != code });
+            seriesList = seriesListNew;
+            saveListSeries();
+            console.log(seriesListNew);
             //Actualizar tabla
-
+            deleteTable();
+            cargaInicial();
             //Success delete
 
             Swal.fire(
@@ -128,5 +134,10 @@ window.deleteProduct = function (codigo) {
             )
         }
     })
+};
 
+function deleteTable() {
+    let tbodySeries = document.querySelector("#seriesDetails");
+    console.log(tbodySeries);
+    tbodySeries.innerHTML = "";
 };
