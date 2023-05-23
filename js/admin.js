@@ -44,9 +44,8 @@ function crearSerie(e) {
     e.preventDefault();
     //volver a validar los datos y crear nueva serie
     let newSerie = new NewSerie(code.value, title.value, description.value, image.value, genre.value);
-    console.log(newSerie);
     seriesList.push(newSerie);
-    console.log(seriesList);
+
     //Clean form
     cleanForm();
     //Guardar series en localStorage
@@ -92,7 +91,7 @@ function crearFila(itemSerie) {
         <td><p class="content-form__text">${itemSerie.image}</p></td>
         <td>${itemSerie.genre}</td>
         <td>
-        <button class="btn btn-warning my-1">
+        <button class="btn btn-warning my-1" onclick="prepararEdicionSerie('${itemSerie.code}')">
             <i class="bi bi-pencil-fill"></i>
         </button>
         <button class="btn btn-danger my-1" onclick="deleteProduct('${itemSerie.code}')">
@@ -104,7 +103,6 @@ function crearFila(itemSerie) {
 
 // Borrar producto
 window.deleteProduct = function (code) {
-    console.log("Delete product " + code);
     //Confirmar borrar
     Swal.fire({
         title: '¿Estas seguro de eliminar la serie?',
@@ -121,7 +119,6 @@ window.deleteProduct = function (code) {
             let seriesListNew = seriesList.filter((serie) => { return serie.code != code });
             seriesList = seriesListNew;
             saveListSeries();
-            console.log(seriesListNew);
             //Actualizar tabla
             deleteTable();
             cargaInicial();
@@ -138,6 +135,20 @@ window.deleteProduct = function (code) {
 
 function deleteTable() {
     let tbodySeries = document.querySelector("#seriesDetails");
-    console.log(tbodySeries);
     tbodySeries.innerHTML = "";
 };
+
+//Edit serie
+window.prepararEdicionSerie = function (codeParam) {
+    //Cargar los datos
+    let serieBuscada = seriesList.find((serie) => { return serie.code == codeParam });
+    console.log(serieBuscada);
+    //Asignar valores al input
+    code.value = serieBuscada.code;
+    title.value = serieBuscada.title;
+    description.value = serieBuscada.description;
+    image.value = serieBuscada.image;
+    genre.value = serieBuscada.genre;
+    //Mostrar la ventaqna modal
+    modalSerieAdmin.show();
+}
