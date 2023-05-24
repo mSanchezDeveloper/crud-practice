@@ -11,6 +11,9 @@ let genreInput = document.querySelector('#genre');
 let formSerie = document.querySelector('#formSeries');
 const btnCreateSerie = document.querySelector('#btnCreateSerie');
 
+//Manejar el create y el update
+let serieExistente = false; // si serieExistente es false la serie es nueva, caso contrario hacer update
+
 //Validations
 code.addEventListener("blur", () => {
     campoRequerido(code);
@@ -30,6 +33,8 @@ image.addEventListener("blur", () => {
 
 btnCreateSerie.addEventListener('click', () => {
     cleanForm();
+    serieExistente = false;
+    console.log(serieExistente);
     modalSerieAdmin.show();
 });
 
@@ -39,13 +44,11 @@ const modalSerieAdmin = new bootstrap.Modal(document.getElementById('modalSeries
 let seriesList = JSON.parse(localStorage.getItem("listaSeriesKey")) || [];
 
 //Validar formulario
-formSerie.addEventListener('submit', crearSerie);
+formSerie.addEventListener('submit', guardarSerie);
 function crearSerie(e) {
-    e.preventDefault();
     //volver a validar los datos y crear nueva serie
     let newSerie = new NewSerie(code.value, title.value, description.value, image.value, genre.value);
     seriesList.push(newSerie);
-
     //Clean form
     cleanForm();
     //Guardar series en localStorage
@@ -65,6 +68,22 @@ function crearSerie(e) {
 function cleanForm() {
     formSerie.reset();
 };
+
+//Funcion para configurar crear serie
+function guardarSerie(e) {
+    e.preventDefault();
+    if (serieExistente) {
+        //Modificar serie existente
+        console.log("Modificar serie")
+        //Validar datos
+        //Guardar actualizacion
+        guardarEdicionSerie();
+    } else {
+        //Guardar serie nueva
+        console.log("Crear serie")
+        crearSerie();
+    }
+}
 
 // Guardar en localstorage
 function saveListSeries() {
@@ -151,4 +170,29 @@ window.prepararEdicionSerie = function (codeParam) {
     genre.value = serieBuscada.genre;
     //Mostrar la ventaqna modal
     modalSerieAdmin.show();
+    serieExistente = true;
+    console.log(serieExistente);
+}
+
+function guardarEdicionSerie() {
+    //Posicion de ka serie en el arreglo
+    let posicionSerie = seriesList.findIndex((serie) => { return serie.code == code.value });
+    //Modificar los valores
+    seriesList[posicionSerie].title = title.value;
+    seriesList[posicionSerie].description = description.value;
+    seriesList[posicionSerie].image = image.value;
+    seriesList[posicionSerie].genre = genre.value;
+    //Guardar los valore en el localstorage
+    saveListSeries();
+    //Actualizar la tabla
+    deleteTable();
+    cargaInicial();
+    //Confirmar accion
+    Swal.fire(
+        '¡Serie actualizada!',
+        '¡La serie ha sido actualizada!',
+        'success'
+    );
+    //Cerrar tabla
+    modalSerieAdmin.hide();
 }
