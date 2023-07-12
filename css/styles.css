@@ -1,0 +1,19 @@
+p.content-form__text {
+    white-space: nowrap;
+    width: 12em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p.content-form__text-description {
+    white-space: nowrap;
+    width: 18em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.img-top__card-container{
+    width: 100%;
+    height: 40vh;
+    object-fit: cover;
+}

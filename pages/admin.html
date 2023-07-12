@@ -8,9 +8,12 @@
   <!-- Styles -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <!-- Sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -38,11 +41,11 @@
   </header>
   <!-- Main -->
   <main class="container my-5">
-    <h1 class="display-4 text-center">Admin series</h1>
+    <h1 class="display-5 text-center">Admin series</h1>
     <hr>
     <section class="d-flex">
       <p class="mb-0">Options</p>
-      <button class="btn btn-outline-primary btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#modalSeriesAdmin">
+      <button class="btn btn-outline-primary btn-sm ms-3" id="btnCreateSerie">
         <i class="bi bi-plus-circle-fill"></i>
       </button>
     </section>
@@ -62,23 +65,13 @@
             </tr>
           </thead>
           <tbody id="seriesDetails">
-            <tr>
-              <th scope="row">1</th>
-              <td>Robotech</td>
-              <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, consectetur.</td>
-              <td>http://127.0.0.1:5500/pages/admin.html</td>
-              <td>Action</td>
-              <td>
-                <button class="btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
-                <button class="btn btn-danger"><i class="bi bi-x-circle-fill"></i></button>
-              </td>
-            </tr>
+
           </tbody>
         </table>
       </article>
     </section>
   </main>
-  <!-- Modal series administratot-->
+  <!-- Modal series administratot -->
   <div class="modal fade" id="modalSeriesAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -87,35 +80,45 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form class="formSeries">
+          <form id="formSeries">
             <div class="mb-3">
               <label for="code">Id</label>
               <input id="code" type="text" class="form-control" placeholder="123" maxlength="5" minlength="1">
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="title">Title</label>
-              <input id="title" type="text" class="form-control" placeholder="Example: Robotech" maxlength="200" minlength="60">
+              <input id="title" type="text" class="form-control" placeholder="Example: Robotech" maxlength="200"
+                minlength="5" required>
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="description">Description</label>
-              <textarea id="description" rows="4" class="form-control" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, laboriosam?" maxlength="60" minlength="10"></textarea>
+              <textarea id="description" rows="4" class="form-control"
+                placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, laboriosam?" maxlength="200"
+                minlength="10" required></textarea>
+              <div id="validateDescription" class="invalid-feedback">Please
+                choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="image">Cover</label>
-              <input id="image" type="text" class="form-control" placeholder="Example: http://127.0.0.1:5500/pages/admin.html" maxlength="120" minlength="10">
+              <input id="image" type="text" class="form-control"
+                placeholder="Example: http://127.0.0.1:5500/pages/admin.html" maxlength="120" minlength="10" required>
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
             <div class="mb-3">
               <label for="genre">Genre</label>
-              <select  id="genre" class="form-control">
-                <option value="">Select one choice</option>
+              <select id="genre" class="form-control">
+                <option value>Select one choice</option>
                 <option value="action">Acction</option>
                 <option value="terror">Terror</option>
                 <option value="drama">Drama</option>
                 <option value="comedy">Comedy</option>
                 <option value="adventure">Adventure</option>
               </select>
+              <div class="invalid-feedback">Please choose a username.</div>
             </div>
-            <button class="btn btn-primary">Save</button>
+            <button class="btn btn-primary" type="submit">Save</button>
           </form>
         </div>
       </div>
@@ -128,7 +131,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
-  </script>
+    </script>
+  <script src="../js/admin.js" type="module"></script>
 </body>
 
 </html>
